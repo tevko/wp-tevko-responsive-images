@@ -11,6 +11,12 @@ Put following code wherever you'd like the image to be
 <?php
 
     $image = 'the image id';
+    // here we define the specific image sizes and names to be used in borealis
+    $mappings = array(
+        0 => 'small-img', // zero maps to default
+        500 => 'medium-img',
+        800 => 'large-img'
+    );
     echo '<img data-borealis-srcs="', getBorealisSrcs($image, $mappings), '">';
 
 ?>

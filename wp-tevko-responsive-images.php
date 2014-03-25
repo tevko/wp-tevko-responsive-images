@@ -4,7 +4,7 @@
 	Plugin Name: WP Tevko Responsive Images
 	Plugin URI: http://timevko.com
 	Description: Fully responsive image solution using pictureTime and the ID of your image.
-	Version: 0.0.1
+	Version: 0.2.0
 	Author: Tim Evko
 	Author URI: http://timevko.com
 	License: Creative Commons

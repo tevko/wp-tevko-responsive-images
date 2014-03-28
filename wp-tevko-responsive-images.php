@@ -1,33 +1,29 @@
 <?php
 
-	/*
-	Plugin Name: WP Tevko Responsive Images
-	Plugin URI: http://timevko.com
-	Description: Fully responsive image solution using pictureTime and the ID of your image.
-	Version: 0.2.0
-	Author: Tim Evko
-	Author URI: http://timevko.com
-	License: Creative Commons
-	*/
+    /*
+    Plugin Name: WP Tevko Responsive Images
+    Plugin URI: http://timevko.com
+    Description: Fully responsive image solution using picturefill and the ID of your image.
+    Version: 0.2.0
+    Author: Tim Evko
+    Author URI: http://timevko.com
+    License: Creative Commons
+    */
 
 
-	//first we get pictureTime and matchMedia.js
+    //first we get picturefill
 
-	function get_pictureTime() {
-	    wp_enqueue_script( 'pictureTime', plugins_url( '/js/pictureTime.js', __FILE__ ));
-	}
-
-    function get_matchMedia() {
-        wp_enqueue_script( 'matchMedia', plugins_url( '/js/matchMedia.js', __FILE__ ));
+    function get_picturefill() {
+        wp_enqueue_script( 'picturefill', plugins_url( '/js/picturefill.js', __FILE__ ));
     }
 
-	add_action('init','get_pictureTime');
-    add_action('init','get_matchMedia');
 
-	//add support for our desired image sizes
-	add_image_size( 'large-img', 1000, 702);
-	add_image_size( 'medium-img', 700, 372);
-	add_image_size( 'small-img', 300, 200);
+    add_action('init','get_picturefill');
+
+    //add support for our desired image sizes - if you add to these, you may have to adjust your shortcode function
+    add_image_size( 'large-img', 1000, 702);
+    add_image_size( 'medium-img', 700, 372);
+    add_image_size( 'small-img', 300, 200);
 
     function getPictureSrcs($image, $mappings)
     {
@@ -36,9 +32,35 @@
         foreach ($mappings as $size => $type)
         {
             $imageSrc = wp_get_attachment_image_src($image, $type);
-            $arr[] ='<source srcset="'. $imageSrc[0] . ' "media="(min-width:'. $size .'px)"/>';
+            $arr[] ='<span data-src="'. $imageSrc[0] . ' "data-media="(min-width:'. $size .'px)"></span>';
         }
-        return implode(array_reverse($arr));
+        return implode($arr);
     }
+
+    // Yes you can use it as a short code
+    function responsiveShortcode( $atts ) {
+
+
+
+        extract( shortcode_atts( array(
+            'imageid'    => 1,
+            // you can add more sizes for your shortcodes here
+            'size1' => 0,
+            'size2' => 600,
+            'size3' => 1000,
+        ), $atts ) );
+
+        $mappings = array(
+            $size1 => 'small-img',
+            $size2 => 'medium-img',
+            $size3 => 'large-img'
+        );
+
+       return '<span data-picture>'
+                     . getPictureSrcs($imageid, $mappings) .
+                    '<noscript>' . wp_get_attachment_image( $imageid, $size2 ) . ' </noscript>
+                </span>';
+    }
+    add_shortcode( 'responsive', 'responsiveShortcode' );
 
 ?>

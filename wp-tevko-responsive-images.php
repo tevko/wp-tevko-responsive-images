@@ -15,7 +15,7 @@
 	function get_picturefill() {
 		wp_enqueue_script('picturefill', plugins_url('/js/picturefill.js', __FILE__ ));
 	}
-	add_action('init', 'get_picturefill');
+	add_action('wp_enqueue_scripts', 'get_picturefill');
 
 
 	// Add support for our desired image sizes - if you add to these, you may have to adjust your shortcode function

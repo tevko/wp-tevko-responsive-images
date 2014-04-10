@@ -7,15 +7,15 @@ This plugin tells WordPress to create three additional sizes for images you uplo
 
     PHP (use in template files) -
 
-    <span data-picture>
-		<?php 
-			$image = 'the id of your image';
-			$mappings = array(
-	            0 => 'small-img', 
-	            250 => 'large-img',
-	            1000 => 'full-width'
-	        );
-		?>
+    <?php 
+		$image = get_field('upload_image');
+		$mappings = array(
+            0 => 'small-img', // zero maps to default
+            250 => 'large-img',
+            1000 => 'full-width'
+        );
+	?>
+	<span data-picture data-alt="<?php echo get_img_alt($image) ?>">
 	   	<?php echo getPictureSrcs($image, $mappings) ?>
 	   	<noscript> <?php echo wp_get_attachment_image($image, $mappings[2]) ?> </noscript>
 	</span>

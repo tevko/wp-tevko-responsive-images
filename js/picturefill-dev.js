@@ -18,8 +18,8 @@
         // See if which sources match
         for( var j = 0, jl = sources.length; j < jl; j++ ){
           var media = sources[ j ].getAttribute( "data-media" );
-          // if there's no media specified, OR w.matchMedia is supported 
-          if( !media || ( w.matchMedia && w.matchMedia( media ).matches ) ){
+          // if there's no media specified, OR w.matchMedia is supported OR media has already been loaded
+          if( !media || ( w.matchMedia && w.matchMedia( media ).matches ) || ( sources[ j ].getAttribute("data-loaded") !== null) ){
             matches.push( sources[ j ] );
           }
         }
@@ -40,6 +40,7 @@
 
         picImg.src =  matchedEl.getAttribute( "data-src" );
         matchedEl.appendChild( picImg );
+        matchedEl.setAttribute("data-loaded", "true");
         picImg.removeAttribute("width");
         picImg.removeAttribute("height");
       }

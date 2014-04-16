@@ -64,7 +64,7 @@ function tevkori_responsive_shortcode( $atts ) {
 		</span>';
 }
 // TODO: It this the best name? responsive_img? picture?
-add_shortcode( 'responsive', 'responsive_shortcode' );
+add_shortcode( 'responsive', 'tevkori_responsive_shortcode' );
 
 // Alter Media Uploader output to output shortcode instead
 // TODO: Make optional?

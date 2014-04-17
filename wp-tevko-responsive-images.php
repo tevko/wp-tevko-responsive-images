@@ -14,6 +14,7 @@ License: MIT
 // First we queue the polyfill
 function tevkori_get_picturefill() {
 	wp_enqueue_script( 'picturefill', plugins_url( '/js/picturefill.js', __FILE__ ) );
+	wp_enqueue_script( 'matchmedia', plugins_url( '/js/matchmedia.js', __FILE__ ) );
 }
 add_action( 'wp_enqueue_scripts', 'tevkori_get_picturefill' );
 

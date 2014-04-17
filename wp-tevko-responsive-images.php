@@ -36,7 +36,7 @@ function tevkori_get_img_alt( $image ) {
 function tevkori_get_picture_srcs( $image, $mappings ) {
 	$arr = array();
 	foreach ( $mappings as $size => $type ) {
-		$image_src = wp_get_attachment_image_src( $image, $type, $alt );
+		$image_src = wp_get_attachment_image_src( $image, $type );
 		$arr[] = '<span data-src="'. $image_src[0] . ' "data-media="(min-width:'. $size .'px)"></span>';
 	}
 	return implode( $arr );

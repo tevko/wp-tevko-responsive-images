@@ -20,14 +20,6 @@ This plugin tells WordPress to create three additional sizes for images you uplo
 	   	<noscript> <?php echo wp_get_attachment_image($imageid, $mappings[2]) ?> </noscript>
 	</span>
 
-### Prereqs
-
-Make sure your current theme has
-
-    'add_theme_support( 'post-thumbnails' );'
-
-in the `functions.php` file.
-
 ### Tutorial
 
 Here: http://css-tricks.com/hassle-free-responsive-images-for-wordpress

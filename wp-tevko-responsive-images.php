@@ -50,6 +50,7 @@ function tevkori_responsive_shortcode( $atts ) {
 		'size1' => 0,
 		'size2' => 600,
 		'size3' => 1000,
+		'class' => 'none'
 	), $atts ) );
 
 	$mappings = array(
@@ -59,7 +60,7 @@ function tevkori_responsive_shortcode( $atts ) {
 	);
 
    return
-		'<span data-picture data-alt="'. tevkori_get_img_alt( $imageid ) .'">'
+		'<span data-picture data-alt="'. tevkori_get_img_alt( $imageid ) .'" class="' . $class . '">'
 			. tevkori_get_picture_srcs( $imageid, $mappings ) .
 			'<noscript>' . wp_get_attachment_image( $imageid, $size2 ) . ' </noscript>
 		</span>';
@@ -71,6 +72,6 @@ add_shortcode( 'responsive', 'tevkori_responsive_shortcode' );
 // TODO: Make optional?
 // TODO: Make this know what sizes are chosen, rather than hardcoded
 function tevkori_responsive_insert_image( $html, $id, $caption, $title, $align, $url ) {
-	return "[responsive imageid='$id' size1='0' size2='600' size3='1000']";
+	return "[responsive imageid='$id' size1='0' size2='600' size3='1000' class='$align']";
 }
 add_filter( 'image_send_to_editor', 'tevkori_responsive_insert_image', 10, 9 );

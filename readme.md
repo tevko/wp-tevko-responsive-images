@@ -15,10 +15,11 @@ This plugin tells WordPress to create three additional sizes for images you uplo
             1000 => 'full-width'
         );
 	?>
-	<span data-picture data-alt="<?php echo tevkori_get_img_alt($imageid) ?>">
-	   	<?php echo tevkori_get_picture_srcs($imageid, $mappings) ?>
-	   	<noscript> <?php echo wp_get_attachment_image($imageid, $mappings[2]) ?> </noscript>
-	</span>
+	<picture>
+        <?php echo tevkori_get_picture_srcs($imageid, $mappings) ?>
+        <noscript> <?php echo wp_get_attachment_image( $imageid, $mappings[0] ) ?> </noscript>
+        <img srcset="<?php echo wp_get_attachment_image_src( $imageid, $type ) ?>" alt="<?php echo tevkori_get_img_alt( $imageid ) ?>">
+    </picture>
 
 ### Tutorial
 

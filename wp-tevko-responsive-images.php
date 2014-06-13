@@ -4,7 +4,7 @@
 Plugin Name: WP Tevko Responsive Images
 Plugin URI: http://timevko.com
 Description: Fully responsive image solution using picturefill and the ID of your image.
-Version: 1.0.0
+Version: 1.0.1
 Author: Tim Evko
 Author URI: http://timevko.com
 License: MIT
@@ -63,7 +63,7 @@ function tevkori_responsive_shortcode( $atts ) {
             <!--[if IE 9]><video style="display: none;"><![endif]-->'
             . tevkori_get_picture_srcs( $imageid, $mappings ) .
             '<!--[if IE 9]></video><![endif]-->
-            <img srcset="' . wp_get_attachment_image_src( $imageid, $type ) . '" alt="' . tevkori_get_img_alt( $imageid ) . '">
+            <img srcset="' . wp_get_attachment_image_src( $imageid[0] ) . '" alt="' . tevkori_get_img_alt( $imageid ) . '">
             <noscript>' . wp_get_attachment_image( $imageid, $mappings[0] ) . ' </noscript>
         </picture>';
 }

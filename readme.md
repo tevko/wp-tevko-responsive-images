@@ -19,7 +19,7 @@ This plugin tells WordPress to create three additional sizes for images you uplo
         <!--[if IE 9]><video style="display: none;"><![endif]-->
         <?php echo tevkori_get_picture_srcs($imageid, $mappings) ?>
         <!--[if IE 9]></video><![endif]-->
-        <img srcset="<?php wp_get_attachment_image_src( $imageid ) ?>" alt="<?php tevkori_get_img_alt( $imageid ) ?>">
+        <img srcset="<?php wp_get_attachment_image_src( $imageid )[0] ?>" alt="<?php tevkori_get_img_alt( $imageid ) ?>">
         <noscript> <?php echo wp_get_attachment_image( $imageid, $mappings[0] ) ?> </noscript>
     </picture>
 

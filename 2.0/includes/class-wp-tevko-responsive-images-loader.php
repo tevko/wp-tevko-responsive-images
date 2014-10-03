@@ -3,11 +3,10 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @since      2.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WP_Tevko_Responsive_Images
+ * @subpackage wp-tevko-responsive-images/includes
  */
 
 /**
@@ -17,16 +16,16 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @package    WP_Tevko_Responsive_Images
+ * @subpackage wp-tevko-responsive-images/includes
+ * @author     Tim Evko <timevko@gmail.com>
  */
-class Plugin_Name_Loader {
+class WP_Tevko_Responsive_Images_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 * @access   protected
 	 * @var      array    $actions    The actions registered with WordPress to fire when the plugin loads.
 	 */
@@ -35,7 +34,7 @@ class Plugin_Name_Loader {
 	/**
 	 * The array of filters registered with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 * @access   protected
 	 * @var      array    $filters    The filters registered with WordPress to fire when the plugin loads.
 	 */
@@ -44,7 +43,7 @@ class Plugin_Name_Loader {
 	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 */
 	public function __construct() {
 
@@ -56,7 +55,7 @@ class Plugin_Name_Loader {
 	/**
 	 * Add a new action to the collection to be registered with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 * @var      string               $hook             The name of the WordPress action that is being registered.
 	 * @var      object               $component        A reference to the instance of the object on which the action is defined.
 	 * @var      string               $callback         The name of the function definition on the $component.
@@ -70,7 +69,7 @@ class Plugin_Name_Loader {
 	/**
 	 * Add a new filter to the collection to be registered with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 * @var      string               $hook             The name of the WordPress filter that is being registered.
 	 * @var      object               $component        A reference to the instance of the object on which the filter is defined.
 	 * @var      string               $callback         The name of the function definition on the $component.
@@ -85,7 +84,7 @@ class Plugin_Name_Loader {
 	 * A utility function that is used to register the actions and hooks into a single
 	 * collection.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 * @access   private
 	 * @var      array                $hooks            The collection of hooks that is being registered (that is, actions or filters).
 	 * @var      string               $hook             The name of the WordPress filter that is being registered.
@@ -112,7 +111,7 @@ class Plugin_Name_Loader {
 	/**
 	 * Register the filters and actions with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 */
 	public function run() {
 

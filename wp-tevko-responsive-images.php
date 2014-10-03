@@ -1,36 +1,63 @@
 <?php
-
+defined('ABSPATH') or die("No script kiddies please!");
 /*
 Plugin Name: WP Tevko Responsive Images
 Plugin URI: http://timevko.com
-Description: Fully responsive image solution using picturefill and the ID of your image.
-Version: 1.0.1
+Description: Fully responsive image solution using picturefill and the ID of your image. Supports sizes and picture syntax
+Version: 2.0.0
 Author: Tim Evko
 Author URI: http://timevko.com
-License: MIT
+License: GPL2
 */
 
 
-// First we queue the polyfill
+// First we queue the polyfill 
 function tevkori_get_picturefill() {
-    wp_enqueue_script( 'picturefill', plugins_url( '/js/picturefill.js', __FILE__ ) );
+	echo 
+    '<style>
+	    picture {
+	    	display: block;
+	    }
+    </style>
+    <script>
+    // Picture element HTML5 shiv
+    document.createElement( "picture" );
+    </script>
+    <script src="' . plugins_url( 'js/picturefill.js', __FILE__ ) . '" async></script>' ;
 }
-add_action( 'wp_enqueue_scripts', 'tevkori_get_picturefill' );
+add_action( 'wp_footer', 'tevkori_get_picturefill' );
 
 
-// Add support for our desired image sizes - if you add to these, you may have to adjust your shortcode function
+// ensure theme support for thumbnails exists, if not add it
+
+function add_thumbnail_support() {
+	$supported = get_theme_support( 'post-thumbnails' );
+	if( $supported == false )
+		add_theme_support( 'post-thumbnails');
+}
+
+add_action( 'after_setup_theme', 'add_thumbnail_support' );
+
+// Add support for our default image sizes - if you add to these, you may have to adjust your shortcode function
 // TODO: Add UI for adjusting?
 function tevkori_add_image_sizes() {
-    add_image_size( 'large-img', 1000, 702 );
-    add_image_size( 'medium-img', 700, 372 );
-    add_image_size( 'small-img', 300, 200 );
+	add_image_size( 'large-img', 1280, 702 );
+    add_image_size( 'large-img', 960, 702 );
+    add_image_size( 'medium-img', 640, 372 );
+    add_image_size( 'small-img', 320, 200 );
 }
 add_action( 'plugins_loaded', 'tevkori_add_image_sizes' );
 
+
 // alt tags will now be automatically included
-function tevkori_get_img_alt( $image ) {
-    $img_alt = trim( strip_tags( get_post_meta( $image, '_wp_attachment_image_alt', true ) ) );
-    return $img_alt;
+function tevkori_get_img_alt( $id ) {
+	$alt = wp_prepare_attachment_for_js( $id )['alt'];
+	$title = wp_prepare_attachment_for_js( $id )['title'];
+	if ($alt) {
+		return $alt;
+	} else {
+		return $title;
+	}
 }
 
 function tevkori_get_picture_srcs( $image, $mappings ) {
@@ -41,6 +68,8 @@ function tevkori_get_picture_srcs( $image, $mappings ) {
     }
     return implode( array_reverse ( $arr ) );
 }
+
+//http://codex.wordpress.org/Function_Reference/wp_get_attachment_metadata
 
 function tevkori_responsive_shortcode( $atts ) {
     extract( shortcode_atts( array(
@@ -62,7 +91,7 @@ function tevkori_responsive_shortcode( $atts ) {
             <!--[if IE 9]><video style="display: none;"><![endif]-->'
             . tevkori_get_picture_srcs( $imageid, $mappings ) .
             '<!--[if IE 9]></video><![endif]-->
-            <img srcset="' . wp_get_attachment_image_src( $imageid[0] ) . '" alt="' . tevkori_get_img_alt( $imageid ) . '">
+            <img srcset="' . wp_get_attachment_image_src( $imageid )[0] . '" alt="' . tevkori_get_img_alt( $imageid ) . '">
             <noscript>' . wp_get_attachment_image( $imageid, $mappings[0] ) . ' </noscript>
         </picture>';
 }
